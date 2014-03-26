@@ -17,7 +17,7 @@ But level=2 is enough to win 100% of all games!
 
 The biggest tile value which was achieved by looking 2 steps (levels) ahead was 32768!
 
-![alt text](https://github.com/FelixNeutatz/2048_M-A-Star/blob/master/img/biggest_value.png "Playing field with 32768 tile")
+![alt text](https://github.com/FelixNeutatz/2048_M-A-Star/blob/master/img/biggest_value.png?raw=true "Playing field with 32768 tile")
 
 
 To check the result of my algorithm you can run https://github.com/FelixNeutatz/2048_M-A-Star/blob/master/src/AStar.java
