@@ -11,7 +11,7 @@ The idea is based on the A* search algorithm. There are implemented 3 cost funct
 
 Up to now the third cost function seems to be most promising.
 
-By increasing the depth (level) of the A* search tree the classification can be improved, but it need much more time, too.
+By increasing the depth (level) of the A* search tree the classification can be improved, but it needs much more time, too.
 
 But level=2 is enough to win 100% of all games!
 
