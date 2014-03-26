@@ -309,19 +309,20 @@ public class PlayingField {
 				if(cells[i][cv] != 0){
 					Boolean moved = false;
 					for(int t=u;t<getY();t++){ //go from left to right
-						//check if it could be merged and if we are allowed to merge
-						if(cells[i][cv] == cells[i][t] && !merged.contains(t)){ 
-							cells[i][t] = cells[i][cv] * 2;
-							cells[i][cv] = 0;
-							merged.add(t); 
-							moved = true;
-							break;
-						}
 						if(cells[i][t] == 0){
 							cells[i][t] = cells[i][cv];
 							cells[i][cv] = 0;
 							cv++;
 							moved = true;
+						}else{
+							//check if it could be merged and if we are allowed to merge
+							if(cells[i][cv] == cells[i][t] && !merged.contains(t)){ 
+								cells[i][t] = cells[i][cv] * 2;
+								cells[i][cv] = 0;
+								merged.add(t); 
+								moved = true;
+							}
+							break;
 						}
 					}
 					if(moved) movedNr++;
@@ -340,19 +341,21 @@ public class PlayingField {
 				if(cells[i][cv] != 0){
 					Boolean moved = false;
 					for(int t=u;t>=0;t--){ //go from current right to left
-						//check if it could be merged and if we are allowed to merge
-						if(cells[i][cv] == cells[i][t] && !merged.contains(t)){ 
-							cells[i][t] = cells[i][cv] * 2;
-							cells[i][cv] = 0;
-							merged.add(t);
-							moved = true;
-							break;
-						}
 						if(cells[i][t] == 0){
 							cells[i][t] = cells[i][cv];
 							cells[i][cv] = 0;
 							cv--;
 							moved = true;
+						}
+						else{
+							//check if it could be merged and if we are allowed to merge
+							if(cells[i][cv] == cells[i][t] && !merged.contains(t)){ 
+								cells[i][t] = cells[i][cv] * 2;
+								cells[i][cv] = 0;
+								merged.add(t);
+								moved = true;								
+							}
+							break;
 						}
 					}
 					if(moved) movedNr++;
@@ -372,18 +375,19 @@ public class PlayingField {
 					Boolean moved = false;
 					for(int t=u;t>=0;t--){ //go from current right to left
 						//check if it could be merged and if we are allowed to merge
-						if(cells[cv][i] == cells[t][i] && !merged.contains(t)){ 
-							cells[t][i] = cells[cv][i] * 2;
-							cells[cv][i] = 0;
-							merged.add(t); 
-							moved = true;
-							break;
-						}
 						if(cells[t][i] == 0){
 							cells[t][i] = cells[cv][i];
 							cells[cv][i] = 0;
 							cv--;
 							moved = true;
+						}else{
+							if(cells[cv][i] == cells[t][i] && !merged.contains(t)){ 
+								cells[t][i] = cells[cv][i] * 2;
+								cells[cv][i] = 0;
+								merged.add(t); 
+								moved = true;
+							}
+							break;
 						}
 					}
 					if(moved) movedNr++;
@@ -402,19 +406,20 @@ public class PlayingField {
 				if(cells[cv][i] != 0){
 					Boolean moved = false;
 					for(int t=u;t<getX();t++){ //go from left to right
-						//check if it could be merged and if we are allowed to merge
-						if(cells[cv][i] == cells[t][i] && !merged.contains(t)){ 
-							cells[t][i] = cells[cv][i] * 2;
-							cells[cv][i] = 0;
-							merged.add(t); 
-							moved = true;
-							break;
-						}
 						if(cells[t][i] == 0){
 							cells[t][i] = cells[cv][i];
 							cells[cv][i] = 0;							
 							cv++;
 							moved = true;
+						}else{
+							//check if it could be merged and if we are allowed to merge
+							if(cells[cv][i] == cells[t][i] && !merged.contains(t)){ 
+								cells[t][i] = cells[cv][i] * 2;
+								cells[cv][i] = 0;
+								merged.add(t); 
+								moved = true;								
+							}
+							break;
 						}
 					}
 					if(moved) movedNr++;

@@ -34,7 +34,7 @@ public class AStar {
 		//create root node for A* Tree
 		Round start = new Round(pf,1,"init");
 		TreeNode<Round> root = new TreeNode<Round>(start);
-		int level=2;
+		int level=4;
 		
 		int numberOfRounds=0;
 		while(pf.movesAvailable()){
