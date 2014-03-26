@@ -13,7 +13,7 @@ Up to now the third cost function seems to be most promising.
 
 By increasing the depth (level) of the A* search tree the classification can be improved, but it needs much more time, too.
 
-But level=2 is enough to win 100% of all games!
+But level=2 is enough to win 100% of all games! In average the algorithm needs 949 rounds to reach the 2048 tile.
 
 The biggest tile value which was achieved by looking 2 steps (levels) ahead was 32768!
 
