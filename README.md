@@ -14,3 +14,9 @@ Up to now the third cost function seems to be most promising.
 By increasing the depth (level) of the A* search tree the classification can be improved, but it need much more time, too.
 
 But level=2 is enough to win 100% of all games!
+
+To check the result of my algorithm you can run https://github.com/FelixNeutatz/2048_M-A-Star/blob/master/src/AStar.java
+which solves random sample game.
+
+
+You can also play the game by running https://github.com/FelixNeutatz/2048_M-A-Star/blob/master/src/Game2048.java
