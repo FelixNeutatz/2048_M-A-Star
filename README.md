@@ -16,7 +16,7 @@ By increasing the depth (level) of the A* search tree the classification can be 
 But level=2 is enough to win 100% of all games!
 
 To check the result of my algorithm you can run https://github.com/FelixNeutatz/2048_M-A-Star/blob/master/src/AStar.java
-which solves random sample game.
+which solves a random sample game.
 
 
 You can also play the game by running https://github.com/FelixNeutatz/2048_M-A-Star/blob/master/src/Game2048.java
