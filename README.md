@@ -5,9 +5,9 @@ This project provides an algorithm to solve the popular game 2048: http://gabrie
 
 The idea is based on the A* search algorithm. There are implemented 3 cost functions:
 
-1: sum of all tiles in the playing field
-2: number of all unassigned tiles in the playing field
-3: average value of an occupied tile
+1. sum of all tiles in the playing field
+2. number of all unassigned tiles in the playing field
+3. average value of an occupied tile
 
 Up to now the third cost function seems to be most promising.
 
