@@ -34,7 +34,7 @@ public class AStar {
 		//create root node for A* Tree
 		Round start = new Round(pf,1,"init");
 		TreeNode<Round> root = new TreeNode<Round>(start);
-		int level=4;
+		int level=2;
 		
 		int numberOfRounds=0;
 		while(pf.movesAvailable()){
@@ -64,7 +64,9 @@ public class AStar {
 		for(TreeNode<Round> n : root.children){
 			//double c = costFunctionSumAll(n,1);
 			//double c = costFunctionNumberFreeCells(n,1);
-			double c = costFunctionAvgScore(n, 1); //best cost function up to now
+			//double c = costFunctionAvgScore(n, 1); //best cost function up to now
+			//double c = costFunctionWeightSum(n, 1);
+			double c = costFunctionSumPow(n, 1);
 			if(c > best){
 				bestMove = n.data;
 				best = c;
@@ -108,6 +110,34 @@ public class AStar {
 			for(TreeNode<Round> n : root.children){
 				sum += costFunctionAvgScore(n,probability*root.data.getProbability());
 			}
+			sum /= root.children.size();
+		}
+		return sum;
+	}
+	
+	public static double costFunctionSumPow(TreeNode<Round> root, double probability){
+		double sum =0;
+		if(root.isLeaf()){
+			return probability * root.data.getProbability() * root.data.getPf().sumPow();
+		}else{
+			for(TreeNode<Round> n : root.children){
+				sum += costFunctionAvgScore(n,probability*root.data.getProbability());
+			}
+			sum /= root.children.size();
+		}
+		return sum;
+	}
+	
+	
+	public static double costFunctionWeightSum(TreeNode<Round> root, double probability){
+		double sum =0;
+		if(root.isLeaf()){
+			return probability * root.data.getProbability() * ((double)root.data.getPf().getMaxWeightedSum());
+		}else{
+			for(TreeNode<Round> n : root.children){
+				sum += costFunctionWeightSum(n,probability*root.data.getProbability());
+			}
+			sum /= root.children.size();
 		}
 		return sum;
 	}

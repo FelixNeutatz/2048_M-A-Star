@@ -277,6 +277,18 @@ public class PlayingField {
 	}
 	
 	
+	public double sumPow(){
+		double sum=0;
+		for(int i=0;i<getX();i++){
+			for(int u=0;u<getY();u++){
+				sum += Math.pow(this.cells[i][u],2);
+			}
+		}
+		return sum;
+	}
+	
+	
+	
 	
 	/**
 	 * set n unassigned tiles to either 2 or 4 (randomly)
@@ -427,6 +439,210 @@ public class PlayingField {
 			}
 		}
 		return movedNr;
+	}
+	
+	public int getMaxWeightedSum(){
+		/*
+		int[][][] weights = new int[][][] {
+				new int[][]{
+			        new int[] { 8, 16, 32, 64},
+			        new int[] { 4 , 8 , 16 , 32},
+			        new int[] { 2  , 4  , 8  , 16},
+			        new int[] { 1   , 2   , 4   , 8}
+				},
+				new int[][]{
+				        new int[] { 64, 32, 16, 8},
+				        new int[] { 32 , 16 , 8 , 4},
+				        new int[] { 16  , 8  , 4  , 2},
+				        new int[] { 8   , 4   , 2   , 1}
+				},
+				new int[][]{
+				        new int[] { 8   , 4   , 2   , 1},
+				        new int[] { 16  , 8  , 4  , 2},
+				        new int[] { 32 , 16 , 8 , 4},
+				        new int[] { 64, 32, 16, 8}
+				},
+				new int[][]{
+						new int[] { 1   , 2   , 4   , 8},
+				        new int[] { 2  , 4  , 8  , 16},
+				        new int[] { 4 , 8 , 16 , 32},
+				        new int[] { 8, 16, 32, 64}
+				}
+		    };
+		*/
+		/*
+		int[][][] weights = new int[][][] {
+				new int[][]{
+			        new int[] { 1, 2, 4, 8},
+			        new int[] { 1, 2, 4, 4},
+			        new int[] { 1, 2, 2, 2},
+			        new int[] { 1, 1, 1, 1}
+				},
+				new int[][]{
+						new int[] { 8, 4, 2, 1},
+				        new int[] { 4, 4, 2, 1},
+				        new int[] { 2, 2, 2, 1},
+				        new int[] { 1, 1, 1, 1}
+				},
+				new int[][]{
+						new int[] { 1, 1, 1, 1},
+				        new int[] { 2, 2, 2, 1},
+				        new int[] { 4, 4, 2, 1},
+				        new int[] { 8, 4, 2, 1}
+				},
+				new int[][]{
+						new int[] { 1, 1, 1, 1},
+				        new int[] { 1, 2, 2, 2},
+				        new int[] { 1, 2, 4, 4},
+				        new int[] { 1, 2, 4, 8}
+				}
+		    };*/
+		/*
+		int[][][] weights = new int[][][] {
+				new int[][]{
+			        new int[] { 1, 10, 100, 1000},
+			        new int[] { 1, 10, 100, 100},
+			        new int[] { 1, 10, 10, 10},
+			        new int[] { 1, 1, 1, 1}
+				},
+				new int[][]{
+						new int[] { 1000, 100, 10, 1},
+				        new int[] { 100, 100, 10, 1},
+				        new int[] { 10, 10, 10, 1},
+				        new int[] { 1, 1, 1, 1}
+				},
+				new int[][]{
+						new int[] { 1, 1, 1, 1},
+				        new int[] { 10, 10, 10, 1},
+				        new int[] { 100, 100, 10, 1},
+				        new int[] { 1000, 100, 10, 1}
+				},
+				new int[][]{
+						new int[] { 1, 1, 1, 1},
+				        new int[] { 1, 10, 10, 10},
+				        new int[] { 1, 10, 100, 100},
+				        new int[] { 1, 10, 100, 1000}
+				}
+		    };
+		*/
+		/*
+		int[][][] weights = new int[][][] {
+				new int[][]{
+			        new int[] { 16, 15, 14, 13},
+			        new int[] { 9, 10, 11, 12},
+			        new int[] { 8, 7, 6, 5},
+			        new int[] { 1, 2, 3, 4}
+				},
+				new int[][]{
+						new int[] { 13, 14, 15, 16},
+				        new int[] { 12, 11, 10, 9},
+				        new int[] { 5, 6, 7, 8},
+				        new int[] { 4, 3, 2, 1}
+				},
+				new int[][]{
+						new int[] { 4, 3, 2, 1},
+				        new int[] { 5, 6, 7, 8},
+				        new int[] { 12, 11, 10, 9},
+				        new int[] { 13, 14, 15, 16}
+				},
+				new int[][]{
+						new int[] { 1, 2, 3, 4},
+				        new int[] { 8, 7, 6, 5},
+				        new int[] { 9, 10, 11, 12},
+				        new int[] { 16, 15, 14, 13}
+				},
+				
+				new int[][]{
+				        new int[] { 16, 9, 8, 1},
+				        new int[] { 15, 10, 7, 2},
+				        new int[] { 14, 11, 6, 3},
+				        new int[] { 13, 12, 5, 4}
+					},
+				new int[][]{
+							new int[] { 13, 12, 5, 4},
+					        new int[] { 14, 11, 6, 3},
+					        new int[] { 15, 10, 7, 2},
+					        new int[] { 16, 9, 8, 1}
+					},
+				new int[][]{
+							new int[] { 1, 8, 9, 16},
+					        new int[] { 2, 7, 10, 15},
+					        new int[] { 3, 6, 11, 14},
+					        new int[] { 4, 5, 12, 13}
+					},
+				new int[][]{
+							new int[] { 4, 5, 12, 13},
+					        new int[] { 3, 6, 11, 14},
+					        new int[] { 2, 7, 10, 15},
+					        new int[] { 1, 8, 9, 16}
+					}
+		    };*/
+		
+		int[][][] weights = new int[][][] {
+				new int[][]{
+			        new int[] { 16, 15, 14, 13},
+			        new int[] { 12, 11, 10, 9},
+			        new int[] { 8, 7, 6, 5},
+			        new int[] { 4, 3, 2, 1}
+				},
+				new int[][]{
+						new int[] { 13, 14, 15, 16},
+				        new int[] { 9, 10, 11, 12},
+				        new int[] { 5, 6, 7, 8},
+				        new int[] { 1, 2, 3, 4}
+				},
+				new int[][]{
+						new int[] { 1, 2, 3, 4},
+				        new int[] { 5, 6, 7, 8},
+				        new int[] { 9, 10, 11, 12},
+				        new int[] { 13, 14, 15, 16}
+				},
+				new int[][]{
+						new int[] { 4, 3, 2, 1},
+				        new int[] { 8, 7, 6, 5},
+				        new int[] { 12, 11, 10, 9},
+				        new int[] { 16, 15, 14, 13}
+				},
+				
+				new int[][]{
+				        new int[] { 16, 12, 8, 4},
+				        new int[] { 15, 11, 7, 3},
+				        new int[] { 14, 10, 6, 2},
+				        new int[] { 13, 9, 5, 1}
+					},
+				new int[][]{
+							new int[] { 13, 9, 5, 1},
+					        new int[] { 14, 10, 6, 2},
+					        new int[] { 15, 11, 7, 3},
+					        new int[] { 16, 12, 8, 4}
+					},
+				new int[][]{
+							new int[] { 4, 8, 12, 16},
+					        new int[] { 3, 7, 11, 15},
+					        new int[] { 2, 6, 10, 14},
+					        new int[] { 1, 5, 9, 13}
+					},
+				new int[][]{
+							new int[] { 1, 5, 9, 13},
+					        new int[] { 2, 6, 10, 14},
+					        new int[] { 3, 7, 11, 15},
+					        new int[] { 4, 8, 12, 16}
+					}
+		    };
+		
+		int oldsum=-1;
+		for(int j=0;j<weights.length;j++){
+			int sum =0;
+			for(int i=0;i<getX();i++){
+				for(int u=0;u<getY();u++){
+					sum += cells[i][u] * weights[j][i][u];
+				}
+			}
+			if(sum > oldsum){
+				oldsum = sum;
+			}
+		}
+		return oldsum;
 	}
 	
 		
