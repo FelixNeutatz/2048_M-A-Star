@@ -34,13 +34,13 @@ public class AStar {
 		//create root node for A* Tree
 		Round start = new Round(pf,1,"init");
 		TreeNode<Round> root = new TreeNode<Round>(start);
-		int level=2;
+		int level=4;
 		
 		int numberOfRounds=0;
 		while(pf.movesAvailable()){
 			bruteForce(root, level); //build tree
 			//printTree(root,0);
-			System.out.println("Number of nodes: " + countNodes(root));
+			System.out.println("Number of nodes: " + countNodes(root) + " Number of leafs: " + countLeafs(root));
 			
 			String move = getDirection(root); //get the playing field of the "right" move
 			System.out.println("dir: " + move);
@@ -174,8 +174,12 @@ public class AStar {
 		for(int i=0;i<start;i++) {
 			System.out.print("\t");
 		}
-		System.out.println(root.data.getMove()+ " : " + root.data.getPf().sumAll());
-		System.out.print(root.data.getPf());
+		System.out.print(root.data.getMove());
+		if(root.isLeaf()) System.out.println(": " + root.data.getPf().sumAll());
+		else{
+			System.out.println();
+		}
+		//System.out.print(root.data.getPf());
 		s += root.children.size();
 		for(TreeNode<Round> n : root.children){
 			s += printTree(n,start+1);
@@ -194,6 +198,20 @@ public class AStar {
 		s += root.children.size();
 		for(TreeNode<Round> n : root.children){
 			s += countNodes(n);
+		}
+		return s;
+	}
+	
+	public static int countLeafs(TreeNode<Round> root){
+		int s=0;
+		s += root.children.size();
+		for(TreeNode<Round> n : root.children){
+			if(!n.isLeaf()){
+				s += countLeafs(n);
+			}
+			else{
+				s=1;
+			}
 		}
 		return s;
 	}
@@ -219,6 +237,7 @@ public class AStar {
 					TreeNode<Round> pnode = left.addChild(p);
 					bruteForce(pnode, level-1);
 				}
+				left.data.setPf(null);
 			}
 			
 			PlayingField pright = ((PlayingField)pf.makeCopy());
@@ -230,6 +249,7 @@ public class AStar {
 					TreeNode<Round> pnode = right.addChild(p);
 					bruteForce(pnode, level-1);
 				}
+				right.data.setPf(null);
 			}
 			
 			PlayingField pup = ((PlayingField)pf.makeCopy());
@@ -241,6 +261,7 @@ public class AStar {
 					TreeNode<Round> pnode = up.addChild(p);
 					bruteForce(pnode, level-1);
 				}
+				up.data.setPf(null);
 			}
 			
 			PlayingField pdown = ((PlayingField)pf.makeCopy());
@@ -252,7 +273,9 @@ public class AStar {
 					TreeNode<Round> pnode = down.addChild(p);
 					bruteForce(pnode, level-1);
 				}
+				down.data.setPf(null);
 			}
+			if(!root.isLeaf()) root.data.setPf(null);
 		}
 	}
 }

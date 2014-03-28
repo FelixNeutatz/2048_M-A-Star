@@ -19,10 +19,10 @@ public class Test {
 		
 		
 		int[][] matrix = new int[][] {
-		        new int[] { 4, 16, 2, 2},
-		        new int[] { 4, 8, 0, 2},
-		        new int[] { 8, 4, 4, 4},
-		        new int[] { 16, 4, 8, 16}
+		        new int[] { 0, 0, 2, 0},
+		        new int[] { 0, 0, 2, 1},
+		        new int[] { 0, 0, 1, 2},
+		        new int[] { 0, 0, 0, 2}
 		    };
 
 		PlayingField pf1 = new PlayingField(matrix);

@@ -730,11 +730,11 @@ public class PlayingField {
 			
 			PlayingField p_new_2 = (PlayingField)this.makeCopy();
 			p_new_2.setValue(ctile.getX(), ctile.getY(), 2);
-			allpos.add(new Round(p_new_2,0.9,"2 at x="+ctile.getX()+", y="+ctile.getY())); //set 2 with probability of 0.9
+			allpos.add(new Round(p_new_2,0.9,"2("+ctile.getX()+","+ctile.getY()+")")); //set 2 with probability of 0.9
 			
 			PlayingField p_new_4 = (PlayingField)this.makeCopy();
 			p_new_4.setValue(ctile.getX(), ctile.getY(), 4);
-			allpos.add(new Round(p_new_4,0.1,"4 at x="+ctile.getX()+", y="+ctile.getY())); //set 4 with probability of 0.1
+			allpos.add(new Round(p_new_4,0.1,"4("+ctile.getX()+","+ctile.getY()+")" )); //set 4 with probability of 0.1
 		}
 		
 		return allpos;
