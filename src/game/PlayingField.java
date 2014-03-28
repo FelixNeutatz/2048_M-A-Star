@@ -49,7 +49,7 @@ public class PlayingField {
 	 * @return
 	 */
 	public ArrayList<Tile> getFreeCells(){
-		ArrayList<Tile> freeCells = new ArrayList<Tile>();
+		ArrayList<Tile> freeCells = new ArrayList<Tile>(14);
 		for(int i=0;i<getX();i++){
 			for(int u=0;u<getY();u++){
 				if(this.cells[i][u]==0){
@@ -209,7 +209,7 @@ public class PlayingField {
 	 * @return
 	 */
 	public ArrayList<Tile> getRandomFreeCells(int n){
-		ArrayList<Tile> randFreeCells = new ArrayList<Tile>();
+		ArrayList<Tile> randFreeCells = new ArrayList<Tile>(2);
 		Random randomGenerator  = new Random();
 		ArrayList<Tile> freeCells = this.getFreeCells();
 		
@@ -315,7 +315,7 @@ public class PlayingField {
 	public int right(){
 		int movedNr = 0;
 		for(int i=0;i<getX();i++){
-			ArrayList<Integer> merged = new ArrayList<Integer>(); //list of all tiles which are already merged and are not allowed to be merged again
+			ArrayList<Integer> merged = new ArrayList<Integer>(2); //list of all tiles which are already merged and are not allowed to be merged again
 			for(int u=getY()-1;u>0;u--){//go from right to left
 				int cv = u-1;
 				if(cells[i][cv] != 0){
@@ -347,7 +347,7 @@ public class PlayingField {
 	public int left(){
 		int movedNr = 0;
 		for(int i=0;i<getX();i++){
-			ArrayList<Integer> merged = new ArrayList<Integer>(); //list of all tiles which are already merged and are not allowed to be merged again
+			ArrayList<Integer> merged = new ArrayList<Integer>(2); //list of all tiles which are already merged and are not allowed to be merged again
 			for(int u=0;u<getY()-1;u++){//go from left to right
 				int cv = u+1;
 				if(cells[i][cv] != 0){
@@ -380,7 +380,7 @@ public class PlayingField {
 	public int up(){
 		int movedNr = 0;
 		for(int i=0;i<getY();i++){
-			ArrayList<Integer> merged = new ArrayList<Integer>(); //list of all tiles which are already merged and are not allowed to be merged again
+			ArrayList<Integer> merged = new ArrayList<Integer>(2); //list of all tiles which are already merged and are not allowed to be merged again
 			for(int u=0;u<getX()-1;u++){//go from left to right
 				int cv = u+1;
 				if(cells[cv][i] != 0){
@@ -412,7 +412,7 @@ public class PlayingField {
 	public int down(){
 		int movedNr = 0;
 		for(int i=0;i<getY();i++){
-			ArrayList<Integer> merged = new ArrayList<Integer>(); //list of all tiles which are already merged and are not allowed to be merged again
+			ArrayList<Integer> merged = new ArrayList<Integer>(2); //list of all tiles which are already merged and are not allowed to be merged again
 			for(int u=getX()-1;u>0;u--){//go from right to left
 				int cv = u-1;
 				if(cells[cv][i] != 0){
@@ -722,7 +722,7 @@ public class PlayingField {
 	 * @return
 	 */
 	public ArrayList<Round> getAllNextPossiblePlayingFields(){
-		ArrayList<Round> allpos = new ArrayList<Round>();
+		ArrayList<Round> allpos = new ArrayList<Round>(14*2);
 		
 		ArrayList<Tile> freeTiles = this.getFreeCells();	//get all unassigned tiles	
 		for(int i=0;i<freeTiles.size();i++){ //iterate trough all tiles
