@@ -122,6 +122,22 @@ public class PlayingField {
 		return moved;
 	}
 	
+	public int moveByInt(int direction){
+		int moved = 0;
+		
+		switch(direction){
+	    	case 0: moved=this.left();
+	    			  break;
+	    	case 1: moved=this.right();
+	    			  break;
+	    	case 2: moved=this.up();
+	    			  break;
+	    	case 3: moved=this.down();
+	    	          break;
+		}
+		return moved;
+	}
+	
 	
 	/**
 	 * Check whether there is a possibility to match any tiles on the playing field by any user action
@@ -214,9 +230,11 @@ public class PlayingField {
 		ArrayList<Tile> freeCells = this.getFreeCells();
 		
 		for(int i=0;i<n;i++){
-			int index = randomGenerator.nextInt(freeCells.size());
-			randFreeCells.add(freeCells.get(index));
-			freeCells.remove(index);
+			if(freeCells.size()>0){
+				int index = randomGenerator.nextInt(freeCells.size());
+				randFreeCells.add(freeCells.get(index));
+				freeCells.remove(index);
+			}
 		}
 		
 		return randFreeCells;
@@ -297,7 +315,7 @@ public class PlayingField {
 	 */
 	public void initialize(int n){
 		ArrayList<Tile> randFreeCells = getRandomFreeCells(n);
-		for(int i=0;i<n;i++){
+		for(int i=0;i<randFreeCells.size();i++){
 			int cx = randFreeCells.get(i).getX();
 			int cy = randFreeCells.get(i).getY();
 			this.cells[cx][cy] = getRandomFirstValue();
@@ -441,7 +459,7 @@ public class PlayingField {
 		return movedNr;
 	}
 	
-	public int getMaxWeightedSum(){
+	public double getMaxWeightedSum(){
 		/*
 		int[][][] weights = new int[][][] {
 				new int[][]{
@@ -525,7 +543,7 @@ public class PlayingField {
 				}
 		    };
 		*/
-		/*
+		
 		int[][][] weights = new int[][][] {
 				new int[][]{
 			        new int[] { 16, 15, 14, 13},
@@ -576,8 +594,8 @@ public class PlayingField {
 					        new int[] { 2, 7, 10, 15},
 					        new int[] { 1, 8, 9, 16}
 					}
-		    };*/
-		
+		    };
+		/*
 		int[][][] weights = new int[][][] {
 				new int[][]{
 			        new int[] { 16, 15, 14, 13},
@@ -628,14 +646,15 @@ public class PlayingField {
 					        new int[] { 3, 7, 11, 15},
 					        new int[] { 4, 8, 12, 16}
 					}
-		    };
+		    };*/
+		    
 		
 		int oldsum=-1;
 		for(int j=0;j<weights.length;j++){
 			int sum =0;
 			for(int i=0;i<getX();i++){
 				for(int u=0;u<getY();u++){
-					sum += cells[i][u] * weights[j][i][u];
+					sum += cells[i][u] * Math.pow(2,weights[j][i][u]);
 				}
 			}
 			if(sum > oldsum){
@@ -717,6 +736,25 @@ public class PlayingField {
 	}
 	
 	
+	public ArrayList<PlayingField> getAllNextPossiblePlayingFieldsPF(){
+		ArrayList<PlayingField> allpos = new ArrayList<PlayingField>(14*2);
+		
+		ArrayList<Tile> freeTiles = this.getFreeCells();	//get all unassigned tiles	
+		for(int i=0;i<freeTiles.size();i++){ //iterate trough all tiles
+			Tile ctile = freeTiles.get(i);
+			
+			PlayingField p_new_2 = (PlayingField)this.makeCopy();
+			p_new_2.setValue(ctile.getX(), ctile.getY(), 2);
+			allpos.add(p_new_2);
+			
+			PlayingField p_new_4 = (PlayingField)this.makeCopy();
+			p_new_4.setValue(ctile.getX(), ctile.getY(), 4);
+			allpos.add(p_new_4);
+		}
+		
+		return allpos;
+	}
+	
 	/**
 	 * get all possible playing fields which could be occur when the tile comes into play
 	 * @return
@@ -738,6 +776,47 @@ public class PlayingField {
 		}
 		
 		return allpos;
+	}
+	
+	/*
+	public double getSmoothness() {
+		  double smoothness = 0;
+		  for (int x=0; x<getX(); x++) {
+		    for (int y=0; y<getY(); y++) {
+		      if ( cells[x][y] > 0) {
+		        double value = Math.log(cells[x][y]) / Math.log(2);
+		        for (int direction=1; direction<=2; direction++) {
+		          int[] vector = this.getVector(direction);
+		          var targetCell = this.findFarthestPosition(this.indexes[x][y], vector).next;
+
+		          if (this.cellOccupied(targetCell)) {
+		            var target = this.cellContent(targetCell);
+		            var targetValue = Math.log(target.value) / Math.log(2);
+		            smoothness -= Math.abs(value - targetValue);
+		          }
+		        }
+		      }
+		    }
+		  }
+		  return smoothness;
+		}
+	*/
+	
+	public int MaxTile(){
+		int best=-1;
+		for(int i=0;i<getX();i++){
+			for(int u=0;u<getY();u++){
+				 if(cells[i][u]>best){
+					 best = cells[i][u];
+				 }
+			}
+		}
+		return best;
+	}
+	
+	
+	public double costFunctionAvgScorePow(double probability){		
+		return ((double)sumPow()/((double)getNumberOccupiedTiles()));
 	}
 	
 }
